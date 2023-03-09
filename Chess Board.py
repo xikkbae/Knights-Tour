@@ -21,7 +21,8 @@ def print_board(dimensions,board):
         print(board)
     print("P P P P P P P P")
     print(order_string)
-
+horizontal_move = [2, 1, -1, -2, -2, -1, 1, 2]
+vertical_move = [1, 2, 2, 1, -1, -2, -2, -1]
 print_board(dimensions,board)
 
 

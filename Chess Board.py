@@ -27,6 +27,26 @@ def print_board(): # Function for printing the board
             print(board[row][column], end=" ")
         print("\n")
 
+# X, Y positions
+x_pos = 0
+y_pos = 0
+possibilities = []
+def search_possibilities(x_pos,y_pos): # Checking if moves are possible
+    # Possible moves for the knight
+    x_move = [2, 1, -1, -2, -2, -1, 1, 2]
+    y_move = [1, 2, 2, 1, -1, -2, -2, -1]
+    possibilities = []
+
+    for i in range(8):
+        if x_move[i]+x_pos>=0 and x_move[i]+x_pos<=7 and y_move[i]+y_pos>= 0 and y_move[i]+y_pos<=7:
+            possibilities.append([x_move[i]+x_pos,y_move[i]+y_pos])
+    return possibilities
+
+def solver():
+    pos = search_possibilities(0, 0)
+
+
+
 
 
 

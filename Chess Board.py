@@ -1,109 +1,58 @@
-'''# Dimensions of chess board
-dimensions = 8
-# Assigning each piece a letter
-knight = "N"
-rook = "R"
-bishop = "B"
-king = "K"
-Queen = "Q"
-Pawn = "P"
-order = ["R", "B", "N", "Q", "K", "N", "B", "R"]
-order_string = "R B N Q K N B R"
-'''
+import os
+def warnsdorffs():
+    # A 2D array for the board
+    y_rows = int(input("How many rows would you want the knight tour to be done on?:"))
+    x_columns = int(input("How many columns would you want the knight tour to be done on?:"))
+    board = []
+    for i in range(y_rows):
+        row = []
+        for j in range(x_columns):
+            row.append(0)
+        board.append(row)
+    def print_board(): # Function for printing the board
+        for row in range(y_rows):
+            for column in range(x_columns):
+                print(board[row][column], end=" ")
+            print("\n")
 
-# A 2D array for the board
-board = [[0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0]]
+    def search_possibilities(curr_x, curr_y): # Function to find the possibilities of the knights movement
+        # All the possible moves
+        x_move = [2, 1, -1, -2, -2, -1, 1, 2]
+        y_move = [1, 2, 2, 1, -1, -2, -2, -1]
+        possibilities = []
+        for i in range(8):
+            new_x = curr_x + x_move[i]
+            new_y = curr_y + y_move[i]
+            if (0 <= new_x < x_columns) and (0 <= new_y < y_rows) and board[new_x][new_y] == 0:
+                possibilities.append([new_x, new_y])
+        return possibilities
 
-def print_board(): # Function for printing the board
-    for row in range(8):
-        for column in range(8):
-            print(board[row][column], end=" ")
-        print("\n")
+    def solve():
+        counter = 2
+        try_solve = 0
+        while try_solve == 0:
+            try:
+                print("Which column would you like to start the tour on?:")
+                curr_x = int(input())-1
+                print("Which row would you like to start the tour on?:")
+                curr_y = int(input())-1
+                board[curr_x][curr_y] = 1
+                os.system('clear')
+                try_solve = 1
+            except:
+                os.system('clear')
+                print("There was an error, please enter an integer from 1-8")
+        for i in range(x_columns * y_rows - 1):
+            pos = search_possibilities(curr_x, curr_y)
+            minimum = pos[0]
+            for p in pos:
+                if len(search_possibilities(p[0], p[1])) <= len(search_possibilities(minimum[0], minimum[1])):
+                    minimum = p
+            curr_x = minimum[0]
+            curr_y = minimum[1]
+            board[curr_x][curr_y] = counter
+            counter += 1
+    solve()
+    print_board()
 
-# X, Y positions
-x_pos = 0
-y_pos = 0
-possibilities = []
-def search_possibilities(x_pos,y_pos): # Checking if moves are possible
-    # Possible moves for the knight
-    x_move = [2, 1, -1, -2, -2, -1, 1, 2]
-    y_move = [1, 2, 2, 1, -1, -2, -2, -1]
-    possibilities = []
-
-    for i in range(8):
-        if x_move[i]+x_pos>=0 and x_move[i]+x_pos<=7 and y_move[i]+y_pos>= 0 and y_move[i]+y_pos<=7:
-            possibilities.append([x_move[i]+x_pos,y_move[i]+y_pos])
-    return possibilities
-
-def solver():
-    pos = search_possibilities(0, 0)
-
-
-
-
-
-
-
-
-
-'''board = ""
-coord_x = 0
-coord_y = 0
-x_move = [2, 1, -1, -2, -2, -1, 1, 2]
-y_move = [1, 2, 2, 1, -1, -2, -2, -1]
-board = [[-1 for i in range(dimensions)]for i in range(dimensions)]
-board[0][0] = 0
-step=1
-'''
-
-
-
-
-
-
-
-
-'''def solveKTUtil(dimensions, board, curr_x, curr_y, x_move, y_move, step):
-    
-        A recursive utility function to solve Knight Tour
-        problem
-
-    if (step == dimensions ** 2):
-        return True
-
-    # Try all next moves from the current coordinate x, y
-    for i in range(8):
-        new_x = curr_x + move_x[i]
-        new_y = curr_y + move_y[i]
-        if (isSafe(new_x, new_y, board)):
-            board[new_x][new_y] = pos
-            if (solveKTUtil(n, board, new_x, new_y, move_x, move_y, pos + 1)):
-                return True
-
-            # Backtracking
-            board[new_x][new_y] = -1
-    return False
-'''
-
-
-
-# Printing the board
-'''def print_board(dimensions,board):
-    print(order_string)
-    print("P P P P P P P P")
-    for i in range(dimensions):
-        board = board + "0 "
-    for i in range(dimensions - 4):
-        print(board)
-    print("P P P P P P P P")
-    print(order_string)
-print_board(dimensions,board)'''
-
-
+warnsdorffs()

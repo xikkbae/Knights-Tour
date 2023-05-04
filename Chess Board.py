@@ -1,5 +1,8 @@
 import os
+import time
+
 def warnsdorffs():
+
     # A 2D array for the board
     y_rows = int(input("How many rows would you want the knight tour to be done on?:"))
     x_columns = int(input("How many columns would you want the knight tour to be done on?:"))
@@ -28,6 +31,8 @@ def warnsdorffs():
         return possibilities
 
     def solve():
+        global start_time
+        start_time = time.time()
         counter = 2
         try_solve = 0
         while try_solve == 0:
@@ -52,7 +57,10 @@ def warnsdorffs():
             curr_y = minimum[1]
             board[curr_x][curr_y] = counter
             counter += 1
+            global end_time
+            end_time = time.time()
     solve()
     print_board()
-
+    elapsed_time = end_time - start_time
+    print(elapsed_time)
 warnsdorffs()
